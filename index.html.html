@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asher Freight and Logistics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #F7F4F0;
+    --bg-alt:   #F0EDE8;
+    --ink:      #1E1E1E;
+    --ink-mid:  #5A5650;
+    --ink-soft: #9A948D;
+    --line:     #DDD9D3;
+    --accent:   #7B6E5D;
+    --warm:     #C4956A;
+    --green:    #6B8F71;
+    --white:    #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.4rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(247,244,240,0.93); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color 0.3s, padding 0.3s; }
+  nav.scrolled { border-color: var(--line); padding: 1rem 3rem; }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; color: var(--ink); text-decoration: none; letter-spacing: 0.01em; }
+  .logo span { color: var(--warm); }
+  .nav-r { display: flex; align-items: center; gap: 2rem; }
+  .nl { font-size: 0.82rem; color: var(--ink-mid); text-decoration: none; position: relative; transition: color 0.2s; }
+  .nl::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+  .nl:hover { color: var(--ink); } .nl:hover::after { width: 100%; }
+  .ncta { font-size: 0.82rem; font-weight: 500; color: var(--white); background: var(--ink); padding: 0.55rem 1.4rem; border-radius: 2px; text-decoration: none; letter-spacing: 0.05em; transition: background 0.25s, transform 0.2s; }
+  .ncta:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* HERO */
+  #hero { min-height: 100vh; padding: 9rem 3rem 5rem; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+  .vline { position: absolute; top: 0; left: 3rem; width: 1px; height: 0; background: var(--line); animation: vline 1.5s ease forwards 0.3s; }
+  @keyframes vline { to { height: 100%; } }
+  .eyebrow-hero { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; color: var(--warm); text-transform: uppercase; margin-bottom: 1.8rem; padding-left: 2rem; position: relative; opacity: 0; animation: fi 0.9s ease forwards 0.7s; }
+  .eyebrow-hero::before { content: ''; position: absolute; left: 0; top: 50%; width: 1.2rem; height: 1px; background: var(--warm); }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 400; line-height: 1.05; color: var(--ink); max-width: 680px; opacity: 0; animation: fi 1s ease forwards 0.9s; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hbody { max-width: 480px; margin-top: 2rem; font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--ink-mid); opacity: 0; animation: fi 0.9s ease forwards 1.1s; }
+  .hbody strong { color: var(--ink); font-weight: 500; }
+  .hact { display: flex; align-items: center; gap: 2rem; margin-top: 2.8rem; opacity: 0; animation: fi 0.9s ease forwards 1.3s; }
+  .btn-p { font-size: 0.85rem; font-weight: 500; color: var(--white); background: var(--ink); padding: 0.85rem 2.2rem; border-radius: 2px; text-decoration: none; letter-spacing: 0.06em; transition: background 0.25s, transform 0.2s; }
+  .btn-p:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-t { font-size: 0.82rem; color: var(--ink-mid); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+  .btn-t:hover { color: var(--ink); }
+  .arr { display: inline-block; transition: transform 0.3s; }
+  .btn-t:hover .arr { transform: translateX(4px); }
+  .hstats { display: flex; gap: 3.5rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--line); opacity: 0; animation: fi 0.9s ease forwards 1.5s; }
+  .sv { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 400; color: var(--ink); }
+  .sv sup { font-family: 'Outfit', sans-serif; font-size: 0.65rem; color: var(--warm); vertical-align: super; }
+  .sd { font-size: 0.72rem; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.2rem; }
+  @keyframes fi { from { opacity: 0; } to { opacity: 1; } }
+
+  /* BADGE — auto shows after launch */
+  .badge { display: none; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem; opacity: 0; animation: fi 0.9s ease forwards 0.5s; }
+  .badge.show { display: flex; opacity: 1; animation: none; }
+  .bdot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pd 2s infinite; }
+  @keyframes pd { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  /* SHARED */
+  section { padding: 6rem 3rem; }
+  .container { max-width: 1060px; margin: 0 auto; }
+  .ey { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; color: var(--warm); text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+  .ey::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--warm); flex-shrink: 0; }
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1.15; color: var(--ink); margin-bottom: 1.4rem; }
+  h2 em { font-style: italic; color: var(--accent); }
+  .lead { font-size: 1rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 580px; }
+  .lead strong { color: var(--ink); font-weight: 500; }
+
+  /* SERVICES */
+  #what { background: var(--bg-alt); }
+  .sg { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; margin-top: 3.5rem; border: 1px solid var(--line); background: var(--line); }
+  .sc { background: var(--bg-alt); padding: 2.2rem; transition: background 0.25s; }
+  .sc:hover { background: var(--bg); }
+  .sn { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; color: var(--warm); margin-bottom: 1.2rem; }
+  .sc h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.6rem; }
+  .sc p { font-size: 0.84rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+
+  /* WHO */
+  #who { background: var(--bg); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.2rem; }
+  .chip { font-size: 0.78rem; font-weight: 400; color: var(--ink-mid); border: 1px solid var(--line); padding: 0.45rem 1rem; border-radius: 1px; transition: all 0.2s; cursor: default; }
+  .chip:hover { border-color: var(--accent); color: var(--ink); background: var(--bg-alt); }
+  .terr { margin-top: 3rem; padding: 2.2rem; border-left: 2px solid var(--warm); background: var(--bg-alt); max-width: 500px; }
+  .tlabel { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--warm); margin-bottom: 0.7rem; }
+  .terr p { font-size: 0.88rem; font-weight: 300; color: var(--ink-mid); line-height: 1.8; }
+  .terr strong { color: var(--ink); font-weight: 500; }
+
+  /* WHY */
+  #why { background: var(--bg-alt); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .rl { list-style: none; margin-top: 2rem; }
+  .rl li { padding: 1.5rem 0; border-bottom: 1px solid var(--line); display: flex; gap: 1.2rem; align-items: flex-start; transition: padding-left 0.3s; }
+  .rl li:hover { padding-left: 0.4rem; }
+  .rl li:first-child { border-top: 1px solid var(--line); }
+  .rn { font-family: 'Playfair Display', serif; font-size: 0.82rem; font-style: italic; color: var(--ink-soft); flex-shrink: 0; padding-top: 2px; }
+  .rt h3 { font-size: 0.88rem; font-weight: 500; color: var(--ink); margin-bottom: 0.35rem; }
+  .rt p { font-size: 0.8rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+  .snote { padding: 2.5rem; background: var(--bg); border: 1px solid var(--line); position: sticky; top: 7rem; }
+  .snote blockquote { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; line-height: 1.65; color: var(--ink); font-style: italic; }
+  .snote cite { display: block; font-family: 'Outfit', sans-serif; font-style: normal; font-size: 0.72rem; color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+
+  /* HOW */
+  #how { background: var(--bg); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 3.5rem; border: 1px solid var(--line); }
+  .step { padding: 2.2rem; border-right: 1px solid var(--line); transition: background 0.25s; }
+  .step:last-child { border-right: none; }
+  .step:hover { background: var(--bg-alt); }
+  .stepn { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 400; color: var(--line); line-height: 1; margin-bottom: 1rem; transition: color 0.3s; }
+  .step:hover .stepn { color: var(--warm); }
+  .step h3 { font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.6rem; }
+  .step p { font-size: 0.78rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+
+  /* QUOTE */
+  #quote { background: var(--bg-alt); }
+  .qgrid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 5rem; align-items: start; }
+  .qintro { padding-top: 2rem; }
+  .cdet { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .crow { display: flex; align-items: baseline; gap: 0.8rem; }
+  .clabel { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-soft); min-width: 3.5rem; }
+  .cval { font-size: 0.85rem; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+  .cval:hover { color: var(--accent); }
+  .field { margin-bottom: 1.1rem; }
+  label { display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.4rem; }
+  input, textarea, select { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 1px; padding: 0.72rem 0.9rem; font-family: 'Outfit', sans-serif; font-size: 0.86rem; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.25s; -webkit-appearance: none; }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  input::placeholder, textarea::placeholder { color: var(--line); }
+  textarea { resize: vertical; min-height: 85px; }
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  button[type="submit"] { width: 100%; background: var(--ink); color: var(--white); font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 500; padding: 0.95rem; border: none; border-radius: 1px; cursor: pointer; letter-spacing: 0.07em; margin-top: 0.4rem; transition: background 0.25s, transform 0.2s; }
+  button[type="submit"]:hover { background: var(--accent); transform: translateY(-1px); }
+  .fsmall { font-size: 0.72rem; color: var(--ink-soft); line-height: 1.7; margin-top: 0.9rem; }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 3rem; }
+  .fi { max-width: 1060px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; }
+  .fb { font-family: 'Playfair Display', serif; font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: 0.4rem; }
+  .ft { font-size: 0.74rem; color: rgba(255,255,255,0.3); font-weight: 300; }
+  .flinks { display: flex; flex-direction: column; gap: 0.45rem; text-align: right; }
+  .flinks a { font-size: 0.78rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .flinks a:hover { color: rgba(255,255,255,0.85); }
+  .fbot { max-width: 1060px; margin: 1.8rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+  .fbot p { font-size: 0.7rem; color: rgba(255,255,255,0.22); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .split { grid-template-columns: 1fr; gap: 2rem; }
+    .snote { position: static; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step { border-bottom: 1px solid var(--line); }
+    .step:nth-child(2) { border-right: none; }
+    .step:nth-child(3) { border-right: 1px solid var(--line); }
+    .step:nth-child(3), .step:nth-child(4) { border-bottom: none; }
+    .qgrid { grid-template-columns: 1fr; gap: 2rem; }
+    .qintro { padding-top: 0; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 1.1rem 1.5rem; }
+    nav.scrolled { padding: 0.9rem 1.5rem; }
+    .nav-r .nl { display: none; }
+    #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .vline { left: 1.5rem; }
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid var(--line); }
+    .step:last-child { border-bottom: none; }
+    .frow { grid-template-columns: 1fr; }
+    .hstats { gap: 2rem; flex-wrap: wrap; }
+    footer { padding: 2rem 1.5rem; }
+    .fi { flex-direction: column; }
+    .flinks { text-align: left; }
+    .fbot { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="logo">Asher <span>Freight & Logistics</span></a>
+  <div class="nav-r">
+    <a href="#what" class="nl">Services</a>
+    <a href="#why" class="nl">Why Us</a>
+    <a href="#quote" class="ncta">Get a Quote</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="vline"></div>
+  <div class="container">
+    <div class="badge" id="badge"><span class="bdot"></span>Now Trading</div>
+    <div class="eyebrow-hero">SME Freight — Yorkshire & the North</div>
+    <h1>Freight that moves.<br><em>Properly.</em></h1>
+    <p class="hbody">Asher Freight and Logistics connects <strong>manufacturers and distributors</strong> across Yorkshire and Lancashire with verified, reliable carriers. We handle the booking, the communication, and the paperwork. You get on with your business.</p>
+    <div class="hact">
+      <a href="#quote" class="btn-p">Request a Quote</a>
+      <a href="#what" class="btn-t">What we do <span class="arr">→</span></a>
+    </div>
+    <div class="hstats">
+      <div><div class="sv">11<sup>+</sup></div><div class="sd">Verified Carriers</div></div>
+      <div><div class="sv">24<sup>/7</sup></div><div class="sd">Availability</div></div>
+      <div><div class="sv">£0</div><div class="sd">Hidden Fees</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="container">
+    <div class="ey reveal">Services</div>
+    <h2 class="reveal d1">What we <em>do.</em></h2>
+    <p class="lead reveal d2">We arrange the collection and delivery of your goods using a network of <strong>DVSA-verified, licensed carriers</strong>. You tell us what needs to move. We handle everything from booking to proof of delivery.</p>
+    <div class="sg">
+      <div class="sc reveal"><div class="sn">01</div><h3>LTL Pallet Collections</h3><p>One to ten pallets moved efficiently and cost-effectively using our pallet network connections across Yorkshire and the North.</p></div>
+      <div class="sc reveal d1"><div class="sn">02</div><h3>Full Truck Load</h3><p>Dedicated vehicle bookings for larger consignments. Your goods, one vehicle, direct from collection to delivery.</p></div>
+      <div class="sc reveal d2"><div class="sn">03</div><h3>RDC & Timed Deliveries</h3><p>Strict slot management for supermarket RDCs and timed commercial drops. We monitor throughout and call you before there is a problem.</p></div>
+      <div class="sc reveal d3"><div class="sn">04</div><h3>Urgent Collections</h3><p>When something needs to move today, we find a carrier quickly. Emergency collections across the North arranged within hours.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="container">
+    <div class="ey reveal">Our Clients</div>
+    <h2 class="reveal d1">Built for northern <em>manufacturers.</em></h2>
+    <p class="lead reveal d2">We work with SME businesses who need a freight partner that picks up the phone, communicates throughout every load, and treats their goods as carefully as they do.</p>
+    <div class="chips reveal d3">
+      <span class="chip">Food & Drink Manufacturers</span>
+      <span class="chip">Engineering & Components</span>
+      <span class="chip">Textile & Apparel</span>
+      <span class="chip">Construction Materials</span>
+      <span class="chip">E-Commerce & Wholesale</span>
+      <span class="chip">Industrial Supplies</span>
+    </div>
+    <div class="terr reveal d4">
+      <div class="tlabel">Primary Territory</div>
+      <p><strong>Yorkshire and Lancashire.</strong> Our carrier network is built around the M62 corridor — Bradford, Leeds, Sheffield, Hull, Huddersfield, and Manchester. We know the roads, the RDCs, and the carriers that show up when they say they will.</p>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="container">
+    <div class="ey reveal">Why Choose Us</div>
+    <div class="split">
+      <div>
+        <h2 class="reveal d1">The standard should<br>be <em>higher.</em></h2>
+        <ul class="rl">
+          <li class="reveal d1"><span class="rn">i</span><div class="rt"><h3>Verified Carrier Network</h3><p>Every carrier is checked against the DVSA register and Companies House before they handle a single load. No unverified operators.</p></div></li>
+          <li class="reveal d2"><span class="rn">ii</span><div class="rt"><h3>Transparent Pricing</h3><p>One all-in rate, agreed before anything moves. No fuel surcharges after the fact, no handling fees, no surprises on the invoice.</p></div></li>
+          <li class="reveal d3"><span class="rn">iii</span><div class="rt"><h3>Communication Throughout</h3><p>You hear from us at collection, in transit, and at delivery. If anything changes, you hear from us before your customer does.</p></div></li>
+          <li class="reveal d4"><span class="rn">iv</span><div class="rt"><h3>Contingent Cargo Insurance</h3><p>Every load is covered by our contingent cargo policy, bridging the gap between standard carrier liability and the actual value of your goods.</p></div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="snote reveal d2">
+          <blockquote>"Late collections. No communication. Damaged goods with no answers. If any of that sounds familiar, you already know why a better option matters."</blockquote>
+          <cite>Paul Olofinlade — Founder, Asher Freight and Logistics</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="ey reveal">The Process</div>
+    <h2 class="reveal d1">Simple from first call<br>to <em>delivery.</em></h2>
+    <div class="steps">
+      <div class="step reveal"><div class="stepn">01</div><h3>Send your load details</h3><p>Collection and delivery address, pallet count, dimensions, weight, and any special requirements. Takes two minutes.</p></div>
+      <div class="step reveal d1"><div class="stepn">02</div><h3>Receive your quote</h3><p>We come back within 30 minutes with a firm all-in rate. No estimates. No waiting for a carrier to call back.</p></div>
+      <div class="step reveal d2"><div class="stepn">03</div><h3>Confirm and step back</h3><p>We book the carrier, send written confirmation, and monitor the load throughout. You focus on your business.</p></div>
+      <div class="step reveal d3"><div class="stepn">04</div><h3>Delivered and documented</h3><p>Signed POD attached to your invoice. Clean paperwork, agreed terms, nothing to chase.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="quote">
+  <div class="container">
+    <div class="qgrid">
+      <div class="qintro reveal">
+        <div class="ey">Get in Touch</div>
+        <h2>Tell us what<br>you need to <em>move.</em></h2>
+        <p class="lead" style="margin-top:1rem;">Fill in the form and we will come back to you within 30 minutes during business hours.</p>
+        <div class="cdet">
+          <div class="crow"><span class="clabel">Phone</span><a href="tel:07502200796" class="cval">07502 200796</a></div>
+          <div class="crow"><span class="clabel">Email</span><a href="mailto:paul@asherfreight.co.uk" class="cval">paul@asherfreight.co.uk</a></div>
+          <div class="crow"><span class="clabel">Hours</span><span class="cval">Mon – Fri, 8am – 6pm</span></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <form style="margin-top:2rem;">
+          <div class="frow">
+            <div class="field"><label for="nm">Your Name</label><input type="text" id="nm" placeholder="Full name" required></div>
+            <div class="field"><label for="co">Company</label><input type="text" id="co" placeholder="Company name" required></div>
+          </div>
+          <div class="frow">
+            <div class="field"><label for="ph">Phone</label><input type="tel" id="ph" placeholder="07500 000 000" required></div>
+            <div class="field"><label for="em">Email</label><input type="email" id="em" placeholder="you@company.co.uk" required></div>
+          </div>
+          <div class="frow">
+            <div class="field"><label for="fc">Collection Postcode</label><input type="text" id="fc" placeholder="BD1 1AA"></div>
+            <div class="field"><label for="fd">Delivery Postcode</label><input type="text" id="fd" placeholder="MK9 2AA"></div>
+          </div>
+          <div class="frow">
+            <div class="field"><label for="fp">Pallets</label><input type="number" id="fp" placeholder="e.g. 2" min="1"></div>
+            <div class="field"><label for="fdt">Collection Date</label><input type="date" id="fdt"></div>
+          </div>
+          <div class="field"><label for="fad">Additional Details</label><textarea id="fad" placeholder="Type of goods, tail lift required, timed delivery, any special instructions..."></textarea></div>
+          <button type="submit">Send Enquiry →</button>
+          <p class="fsmall">We respond within 30 minutes during business hours. For urgent enquiries call <strong>07502 200796</strong> directly.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div>
+      <div class="fb">Asher Freight and Logistics Ltd</div>
+      <div class="ft">SME freight solutions — Yorkshire & the North of England</div>
+    </div>
+    <div class="flinks">
+      <a href="tel:07502200796">07502 200796</a>
+      <a href="mailto:paul@asherfreight.co.uk">paul@asherfreight.co.uk</a>
+      <a href="https://asherfreight.co.uk">asherfreight.co.uk</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>© 2026 Asher Freight and Logistics Ltd. Registered in England and Wales.</p>
+    <p>All loads protected by contingent cargo insurance.</p>
+  </div>
+</footer>
+
+<script>
+  // Nav shrink
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Auto badge — shows on/after June 13 2026
+  if (new Date() >= new Date('2026-06-13T00:00:00')) {
+    document.getElementById('badge').classList.add('show');
+  }
+
+  // Form feedback
+  document.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Sent — we will be in touch shortly.';
+    btn.style.background = '#6B8F71';
+    btn.disabled = true;
+  });
+</script>
+</body>
+</html>
